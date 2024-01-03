@@ -1,0 +1,309 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Driver for the Resend API",
+        "actions": [
+          {
+            "name": "configure",
+            "description": "Configure the driver",
+            "type": "Void",
+            "params": [
+              {
+                "name": "apiKey",
+                "type": "String"
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "name": "status",
+            "description": "Status of the driver",
+            "type": "String"
+          },
+          {
+            "name": "emails",
+            "description": "Emails collection",
+            "type": "Emails"
+          },
+          {
+            "name": "domains",
+            "description": "Domains collection",
+            "type": "DomainCollection"
+          }
+        ]
+      },
+      {
+        "name": "Emails",
+        "fields": [],
+        "actions": [
+          {
+            "name": "retrieve",
+            "description": "Retrieve a single email",
+            "type": "Email",
+            "params": [
+              {
+                "name": "id",
+                "description": "Email ID",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "send",
+            "description": "Send an email",
+            "type": "List",
+            "params": [
+              {
+                "name": "to",
+                "description": "Email address of the recipient",
+                "type": "String"
+              },
+              {
+                "name": "from",
+                "description": "Email address of the sender",
+                "type": "String"
+              },
+              {
+                "name": "subject",
+                "description": "Subject of the email",
+                "type": "String"
+              },
+              {
+                "name": "bcc",
+                "description": "BCC recipients",
+                "type": "Json",
+                "optional": true
+              },
+              {
+                "name": "cc",
+                "description": "CC recipients",
+                "type": "Json",
+                "optional": true
+              },
+              {
+                "name": "reply_to",
+                "description": "Reply to recipients",
+                "type": "Json",
+                "optional": true
+              },
+              {
+                "name": "html",
+                "description": "HTML body of the email",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "text",
+                "description": "Text body of the email",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "react",
+                "description": "React component to render",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "headers",
+                "description": "Headers to send with the email",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "attachments",
+                "description": "Attachments to send with the email",
+                "type": "Json",
+                "optional": true
+              },
+              {
+                "name": "tags",
+                "description": "Tags to send with the email",
+                "type": "Json",
+                "optional": true
+              }
+            ],
+            "ofType": "Json"
+          },
+          {
+            "name": "batch",
+            "description": "Send a batch of emails",
+            "type": "Json"
+          }
+        ]
+      },
+      {
+        "name": "Email",
+        "description": "An email",
+        "fields": [
+          {
+            "name": "object",
+            "description": "Object type",
+            "type": "String"
+          },
+          {
+            "name": "id",
+            "description": "Email ID",
+            "type": "String"
+          },
+          {
+            "name": "to",
+            "description": "Email address of the recipient",
+            "type": "Json"
+          },
+          {
+            "name": "from",
+            "description": "Email address of the sender",
+            "type": "String"
+          },
+          {
+            "name": "created_at",
+            "description": "Date the email was created",
+            "type": "String"
+          },
+          {
+            "name": "subject",
+            "description": "Subject of the email",
+            "type": "String"
+          },
+          {
+            "name": "html",
+            "description": "HTML body of the email",
+            "type": "String"
+          },
+          {
+            "name": "text",
+            "description": "Text body of the email",
+            "type": "String"
+          },
+          {
+            "name": "bcc",
+            "description": "BCC recipients",
+            "type": "Json"
+          },
+          {
+            "name": "cc",
+            "description": "CC recipients",
+            "type": "Json"
+          },
+          {
+            "name": "reply_to",
+            "description": "Reply to recipients",
+            "type": "Json"
+          },
+          {
+            "name": "last_event",
+            "description": "Last event",
+            "type": "String"
+          }
+        ]
+      },
+      {
+        "name": "DomainPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Domain"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "DomainPage"
+          }
+        ]
+      },
+      {
+        "name": "DomainCollection",
+        "fields": [
+          {
+            "name": "page",
+            "type": "DomainPage"
+          },
+          {
+            "name": "one",
+            "type": "Domain",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ]
+          }
+        ],
+        "actions": [
+          {
+            "name": "add",
+            "description": "Add a domain",
+            "type": "Domain",
+            "params": [
+              {
+                "name": "name",
+                "type": "String"
+              },
+              {
+                "name": "region",
+                "type": "String",
+                "optional": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Domain",
+        "description": "A domain",
+        "fields": [
+          {
+            "name": "id",
+            "description": "Domain ID",
+            "type": "String"
+          },
+          {
+            "name": "name",
+            "description": "Domain name",
+            "type": "String"
+          },
+          {
+            "name": "status",
+            "description": "Domain status",
+            "type": "String"
+          },
+          {
+            "name": "created_at",
+            "description": "Date the domain was created",
+            "type": "String"
+          },
+          {
+            "name": "region",
+            "description": "Region",
+            "type": "String"
+          },
+          {
+            "name": "records",
+            "description": "Array of DNS records",
+            "type": "Json"
+          }
+        ],
+        "actions": [
+          {
+            "name": "verify",
+            "description": "Verify a domain",
+            "type": "Json"
+          },
+          {
+            "name": "delete",
+            "description": "Delete a domain",
+            "type": "Json"
+          }
+        ]
+      }
+    ]
+  },
+  "dependencies": {
+    "http": "http:"
+  }
+}
